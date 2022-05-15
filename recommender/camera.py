@@ -97,11 +97,11 @@ class VideoCamera(object):
             # Calculate angle
 					angle = calculate_angle(shoulder, elbow, wrist)
 					
-					# Visualize angle
-					cv2.putText(image, str(angle), 
-								tuple(np.multiply(elbow, [640, 480]).astype(int)), 
-								cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-										)
+					# # Visualize angle
+					# cv2.putText(image, str(angle), 
+					# 			tuple(np.multiply(elbow, [640, 480]).astype(int)), 
+					# 			cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+					# 					)
 					
 					# Curl counter logic
 					
@@ -130,10 +130,10 @@ class VideoCamera(object):
 										)                  
 ##########################################################
 				frame_flip = cv2.flip(image,1)
-				# cv2.putText(frame_flip, str(angle), 
-				# 				tuple(np.multiply(elbow, [640, 480]).astype(int)), 
-				# 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-				# 						)
+				cv2.putText(frame_flip, str(angle), 
+								tuple(np.multiply(elbow, [200, 480]).astype(int)), 
+								cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+										)
 				cv2.rectangle(frame_flip, (0,0), (225,73), (245,117,16), -1)
 				cv2.putText(frame_flip, 'REPS', (15,12), 
 							cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
