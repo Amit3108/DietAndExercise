@@ -1,9 +1,27 @@
+{% extends 'basic.html' %}
+{% block body %}
 <html>
   <head>
-    <title>Video Live Stream</title>
+    <title>Exercise Monitor</title>
+    <style>
+      body{
+        background-image: url("https://us.123rf.com/450wm/romastudio/romastudio1812/romastudio181200216/117004062-sports-equipment-on-a-black-background-top-view-motivation.jpg?ver=6");
+        background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: fixed;
+      }
+      .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 15vh;
+}
+    </style>
   </head>
   <body>
-    <h1>Video Live Stream</h1>
-    <img src="{% url 'video_feed' %}"> 
+    <img src="{% url 'video_feed' %}" class="center"> 
   </body>
 </html>
+{% endblock %}

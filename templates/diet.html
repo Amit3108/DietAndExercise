@@ -16,21 +16,24 @@
     </head>
     <body>
     <header>
-        <a href="/" class="logo">MYDIETDIARY</a>
+        <img src = "/static/images/logo.png" alt = "Test Image" width = "400" height = "100" />
         <ul class="m-0">
-            <li><a href="/" class="btn btn-warning">Home</a></li>
-            <li><a href="http://localhost:3000" class="btn btn-warning">Dashboard</a></li>
-            <ul style="text-align:centre; width: 380px; height: 50px; border: 2px solid #FFC107; box-sizing: border-box;">
+            <li><a href="/" class="btn" style="background-color:#df867c ;">Home</a></li>
+            <!-- <li><a href="http://localhost:3000" class="btn btn-warning">Dashboard</a></li> -->
+            <ul style="text-align:centre; width: 380px; height: 50px; border: 2px solid #df867c; box-sizing: border-box;">
             <li >
-            <h6 class="m-0" style="">
+            <h6 class="m-0">
                 Total Calories: <span id="caloriesadded"></span> / <span id="caloriesreq"
-                    value={{caloriesreq}}>{{caloriesreq}}</span> goal
+                    value={{caloriesreq}}> {{caloriesreq}}</span> goal
             </h6>
             </li>
+           
+            </li>
             <li>
-            <button onclick="getValue()" class="btn btn-warning" style="margin-left: 20%;">Update</button>
+            <button onclick="getValue()" class="btn" style="background-color:#df867c ;" style="margin-left: 20%;">Update</button>
             </li>
         </ul>
+        <li> <p id="status"></p></li>
     </ul>
      </header>
 
@@ -38,9 +41,9 @@
      <div class="banner1">
         <div class="row">
             {% if bmi %}
-            <h1 style="">Your BMI is {{bmi}}</h1>
+            <h1>Your BMI is {{bmi}}</h1>
             {% endif %}
-            <h1 style="">{{bmiinfo}}</h1>
+            <h1>{{bmiinfo}}</h1>
         </div>
       </div>     
 
