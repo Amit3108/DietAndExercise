@@ -145,7 +145,7 @@ def Weight_Loss(age,weight,height):
     brklbl=kmeans.labels_
     
     inp=[]
-    ## Reading of the Dataet
+    ## Reading of the Dataset
     datafin=pd.read_csv(os.path.join(BASE_DIR ,"static/data/nutrition_distriution.csv"))
 
     ## train set

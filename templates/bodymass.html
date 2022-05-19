@@ -64,11 +64,11 @@
     background-size: cover;
     background-position: center;
     padding: 200px 0 0 200px;
-	background-image: url({% static 'images/homebanner.png' %});">
+	background-image: url('https://assets.vogue.in/photos/5ce441d61dc267ede7c7a649/master/pass/how-to-follow-your-diet-plans.jpg');">
         <div>
             <h2>Body Fat% Calculator</h2>
             <p class="text">Height</p>
-            <input type="text" name="height" id="h" placeholder="Enter height [m]">
+            <input type="text" name="height" id="h" placeholder="Enter height [cm]">
             <p class="text">Weight</p>
             <input type="text" name="weight" id="w" placeholder="Enter Weight [kg]">
 			<p class="text">Gender</p>
@@ -89,15 +89,13 @@
 
     
 
-    
-
     <script>
         function BMI(){
 		var weight=document.getElementById('w').value;
 		var height=document.getElementById('h').value;
 		var age=document.getElementById('a').value;
 		var bfp=0.0;
-		var bmi=parseInt(weight)/(parseFloat(height)*parseFloat(height));
+		var bmi=parseInt(weight)/(parseFloat(height/100)*parseFloat(height/100));
 
 		if (document.getElementById('f').checked)
 		{
