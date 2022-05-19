@@ -98,6 +98,7 @@ class VideoCamera(object):
                              landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
 
             # Calculate angle
+
                     angle = calculate_angle(shoulder, elbow, wrist)
 
                     # Visualize angle
@@ -147,6 +148,7 @@ class VideoCamera(object):
                 cv2.putText(frame_flip, str(counter),
                             (10, 60),
                             cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
 
                 # Stage data
                 cv2.putText(frame_flip, 'STAGE', (65, 12),
