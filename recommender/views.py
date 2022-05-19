@@ -113,10 +113,13 @@ def detect(request):
     return render(request,"detect.html")   
 
 def gen(camera):
-	while True:
-		frame = camera.get_frame()
-		yield (b'--frame\r\n'
-				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+    counter = 0
+    stage = None
+    task_done = False
+    while not task_done:
+        frame,counter,stage, task_done = camera.get_frame(counter, stage, task_done)
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 def video_feed(request):

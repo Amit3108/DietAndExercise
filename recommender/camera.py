@@ -1,6 +1,6 @@
 
-from imutils.video import VideoStream
-import imutils
+# from imutils.video import VideoStream
+# import imutils
 import cv2
 import os
 import urllib.request
@@ -20,40 +20,15 @@ class VideoCamera(object):
     def __del__(self):
         self.video.release()
 
-    # def get_frame(self):
-    # 	success, image = self.video.read()
-    # 	# We are using Motion JPEG, but OpenCV defaults to capture raw images,
-    # 	# so we must encode it into JPEG in order to correctly display the
-    # 	# video stream.
-
-    # 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # 	faces_detected = face_detection_videocam.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
-    # 	for (x, y, w, h) in faces_detected:
-    # 		cv2.rectangle(image, pt1=(x, y), pt2=(x + w, y + h), color=(255, 0, 0), thickness=2)
-    # 	frame_flip = cv2.flip(image,1)
-    # 	ret, jpeg = cv2.imencode('.jpg', frame_flip)
-    # 	return jpeg.tobytes()
-############################################
-
-    def calculate_angle(a, b, c):
-        a = np.array(a)  # First
-        b = np.array(b)  # Mid
-        c = np.array(c)  # End
-
-        radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - \
-            np.arctan2(a[1]-b[1], a[0]-b[0])
-        angle = np.abs(radians*180.0/np.pi)
-
-        if angle > 180.0:
-            angle = 360-angle
-
-        return angle
+   
 
 
 ###############################################
 
 
-    def get_frame(self):
+    def get_frame(self,counter,stage,task_done):
+        print(counter)
+
         def calculate_angle(a, b, c):
             a = np.array(a)  # First
             b = np.array(b)  # Mid
@@ -68,8 +43,8 @@ class VideoCamera(object):
 
             return angle
 
-        counter = 0
-        stage = None
+        # counter = 0
+        # stage = None
         with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
             while self.video.isOpened():
                 ret, frame = self.video.read()
@@ -102,27 +77,28 @@ class VideoCamera(object):
                     angle = calculate_angle(shoulder, elbow, wrist)
 
                     # Visualize angle
-                    # cv2.putText(image, str(angle),
-                    #             tuple(np.multiply(
-                    #                 elbow, [640, 480]).astype(int)),
-                    #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (
-                    #                 255, 255, 255), 2, cv2.LINE_AA
-                    #             )
+                    cv2.putText(image, str(angle),
+                                tuple(np.multiply(
+                                    elbow, [200, 480]).astype(int)),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (
+                                    255, 255, 255), 2, cv2.LINE_AA
+                                )
 
                     # Curl counter logic
-
+                    print(angle)
                     if angle > 160:
                         stage = "down"
-                    if angle < 30 and stage == 'down':
+                    if angle < 45 and stage == 'down':
                         stage = "up"
                         counter += 1
                         print(counter)
 
-                    # if counter == 15:
-                    #     counter = ""
-                    #     stage = "Done"
-                    #     print("Task Completed")
-                        # cap.release()
+                    if counter == 5:
+                        counter = ""
+                        stage = "Done"
+                        print("Task Completed")
+                        self.video.release()
+                        task_done = True
 
                 except:
                     pass
@@ -136,11 +112,11 @@ class VideoCamera(object):
                                           )
 ##########################################################
                 frame_flip = cv2.flip(image, 1)
-                cv2.putText(frame_flip, str(angle),
-                            tuple(np.multiply(elbow, [200, 480]).astype(int)),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (
-                                255, 255, 255), 2, cv2.LINE_AA
-                            )
+                # cv2.putText(frame_flip, str(angle),
+                #             tuple(np.multiply(elbow, [200, 480]).astype(int)),
+                #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (
+                #                 255, 255, 255), 2, cv2.LINE_AA
+                #             )
                 cv2.rectangle(frame_flip, (0, 0),
                               (225, 73), (245, 117, 16), -1)
                 cv2.putText(frame_flip, 'REPS', (15, 12),
@@ -157,4 +133,4 @@ class VideoCamera(object):
                             (60, 60),
                             cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
                 ret, jpeg = cv2.imencode('.jpg', frame_flip)
-                return jpeg.tobytes()
+                return jpeg.tobytes(), counter, stage, task_done
